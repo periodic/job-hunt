@@ -1,6 +1,7 @@
 import type { HTMLProps, PropsWithChildren } from "react";
 
-export default function ButtonLink(props: PropsWithChildren<HTMLProps<HTMLButtonElement>>) {
+// The extra override for the type prop is because somehow the HTMLProps comes back as `string` but the button expects fixed values.
+export default function Button(props: PropsWithChildren<HTMLProps<HTMLButtonElement> & { type?: 'button' | 'submit' | 'reset'}>) {
   return <button
     {...props}
     className="px-4 py-2 border border-slate-400 text-slate-200"

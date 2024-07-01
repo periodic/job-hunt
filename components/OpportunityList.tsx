@@ -27,7 +27,7 @@ export default function OpportunityList({ opportunities }: Props) {
   return <div>
     <div className="flex flex-row">
       <div>
-        <select value={filter} onChange={(e) => setFilter(e.target.value)}>
+        <select value={filter} onChange={(e) => setFilter(e.target.value as 'open' | 'closed' | 'all')}>
           <option value='open'>Open</option>
           <option value='closed'>Closed</option>
           <option value='all'>All</option>
