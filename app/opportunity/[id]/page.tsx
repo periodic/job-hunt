@@ -42,6 +42,10 @@ export default async function OpportunityDetails({params}: Props) {
       {opportunity.role} @ {opportunity.company}
     </PageTitle>
 
+    <p>
+      {opportunity.notes}
+    </p>
+
     <UpdateList updates={updates} />
 
     <div>

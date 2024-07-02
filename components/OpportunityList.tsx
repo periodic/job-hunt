@@ -9,6 +9,7 @@ import Timestamp from "./Timestamp";
 import ButtonLink from "./ButtonLink";
 import { useState } from "react";
 import { isTerminalState } from "@/model/opportunity-state";
+import Select from "./Select";
 
 export type Props = {
   opportunities: Array<Opportunity & { lastUpdate: Update }>;
@@ -25,13 +26,17 @@ export default function OpportunityList({ opportunities }: Props) {
     );
 
   return <div>
-    <div className="flex flex-row">
+    <div className="flex flex-row items-center gap-8">
       <div>
-        <select value={filter} onChange={(e) => setFilter(e.target.value as 'open' | 'closed' | 'all')}>
-          <option value='open'>Open</option>
-          <option value='closed'>Closed</option>
-          <option value='all'>All</option>
-        </select>
+        <Select
+        value={filter}
+        onChange={(e) => setFilter(e)}
+        items={{
+          open: "Open",
+          closed: "Closed",
+          all: "All",
+        }}
+        />
       </div>
       <div>
         <ButtonLink href="opportunity/create">New Opportunity</ButtonLink>

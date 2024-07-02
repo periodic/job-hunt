@@ -1,6 +1,7 @@
 import { createSchema } from "../database/schema";
 
 console.log('Creating Schema');
+
 createSchema()
   .then(
     () => {
