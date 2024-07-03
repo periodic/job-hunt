@@ -1,15 +1,18 @@
 import knex from 'knex';
 
-const dbConfig =
-
-process.env.NODE_ENV === 'development'
-  ? {
+function devClient() {
+  console.log(`Using sqlite database`);
+  return knex({
     client: 'sqlite3',
     connection: {
       filename: './db.sqlite'
     },
-  }
-  : {
+  });
+}
+
+function prodClient() {
+  console.log(`Using database connection ${process.env.DB_USER}@${process.env.DB_HOST}`);
+  return knex({
     client: 'pg',
     connection: {
       host: process.env.DB_HOST,
@@ -18,6 +21,10 @@ process.env.NODE_ENV === 'development'
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASE ?? process.env.DB_USER,
     }
-  };
+  });
+}
 
-export const client = knex(dbConfig);
+export const client =
+  process.env.NODE_ENV === 'development'
+    ? devClient()
+    : prodClient();
