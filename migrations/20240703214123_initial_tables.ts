@@ -1,8 +1,8 @@
-import { client } from "./client"
+import type { Knex } from "knex";
 
-export const createSchema = async () => {
-  await client.schema.dropTableIfExists('opportunity');
-  await client.schema.createTable('opportunity', function (table) {
+
+export async function up(knex: Knex): Promise<void> {
+  await knex.schema.createTable('opportunity', function (table) {
     table.increments('id', { primaryKey: true });
     table.string('company');
     table.string('role');
@@ -10,8 +10,7 @@ export const createSchema = async () => {
     table.dateTime('created').notNullable();
   });
 
-  await client.schema.dropTableIfExists('update');
-  await client.schema.createTable('update', function (table) {
+  await knex.schema.createTable('update', function (table) {
     table.increments('id', { primaryKey: true });
     table.string('state').notNullable();
     table.string('notes').notNullable();
@@ -20,3 +19,10 @@ export const createSchema = async () => {
     table.foreign('opportunity_id').references('opportunity.id');
   });
 }
+
+
+export async function down(knex: Knex): Promise<void> {
+  await knex.schema.dropTableIfExists('opportunity');
+  await knex.schema.dropTableIfExists('update');
+}
+
