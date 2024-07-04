@@ -1,19 +1,19 @@
-import { openStates, type OpportunityState } from "@/model/opportunity-state";
-import { client } from "./client";
 import type { Opportunity } from "@/model/opportunity";
-import { createUpdate, latestUpdate } from "./update";
+import { type OpportunityState } from "@/model/opportunity-state";
 import type { Update } from "@/model/update";
+import { makeClient } from "./client";
+import { createUpdate } from "./update";
 
-const opportunities = () =>
-  client<Opportunity>('opportunity');
+const opportunities = async () => makeClient<Opportunity>('opportunity');
+
 
 const fixDates = <T extends { created: number | Date }>(opportunity: T): T & { created: Date } => ({
   ...opportunity,
   created: new Date(opportunity.created)
 });
 
-export const getOpportunitiesWithLastUpdate = (): Promise<(Opportunity & { lastUpdate: Update })[]> => {
-  const query = opportunities()
+export const getOpportunitiesWithLastUpdate = async (): Promise<(Opportunity & { lastUpdate: Update })[]> => {
+  const query = (await opportunities()).client
     .select({
       id: 'opportunity.id',
       company: 'opportunity.company',
@@ -35,24 +35,24 @@ export const getOpportunitiesWithLastUpdate = (): Promise<(Opportunity & { lastU
 
   return query
     .then(opportunities => opportunities.map(opportunity => ({
-        ...fixDates(opportunity),
-        lastUpdate: fixDates({
-          id: opportunity.updateId,
-          state: opportunity.updateState,
-          created: opportunity.updateCreated,
-          notes: opportunity.updateNotes,
-        }),
+      ...fixDates(opportunity),
+      lastUpdate: fixDates({
+        id: opportunity.updateId,
+        state: opportunity.updateState,
+        created: opportunity.updateCreated,
+        notes: opportunity.updateNotes,
+      }),
     })));
-  }
+}
 
-export const getOpportunity = (id: number): Promise<Opportunity> =>
-  opportunities()
+export const getOpportunity = async (id: number): Promise<Opportunity> =>
+  (await opportunities()).client
     .first('*')
     .where('id', id)
     .then(fixDates);
 
 export const createOpportunity = async (company: string, role: string, state: OpportunityState, notes: string): Promise<number> => {
-  const insertedIds = await opportunities()
+  const insertedIds = await (await opportunities()).client
     .insert({
       company,
       role,
