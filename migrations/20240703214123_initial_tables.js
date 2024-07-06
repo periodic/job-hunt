@@ -1,7 +1,4 @@
-import type { Knex } from "knex";
-
-
-export async function up(knex: Knex): Promise<void> {
+async function up(knex) {
   await knex.schema.createTable('opportunity', function (table) {
     table.increments('id', { primaryKey: true });
     table.string('company');
@@ -21,8 +18,15 @@ export async function up(knex: Knex): Promise<void> {
 }
 
 
-export async function down(knex: Knex): Promise<void> {
+async function down(knex) {
   await knex.schema.dropTableIfExists('opportunity');
   await knex.schema.dropTableIfExists('update');
 }
 
+// Note: Migrations must be in raw JS because they will be pulled into the image
+// without compiling.
+// TODO: run migrations through tsc
+module.exports = {
+  up,
+  down,
+};

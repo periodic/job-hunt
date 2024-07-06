@@ -1,5 +1,4 @@
 import knex from 'knex';
-import { DeferredKeySelection } from 'knex/types';
 
 function devClient() {
   console.log(`Using sqlite database`);

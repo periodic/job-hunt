@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
 
-sudo docker build -t docker.havenisms.com/app/jobhunt .
-sudo docker push docker.havenisms.com/app/jobhunt
+set -e
+
+CONTAINER_NAME="docker.havenisms.com/app/jobhunt"
+
+docker build -t $CONTAINER_NAME:latest .
+docker push $CONTAINER_NAME:latest
