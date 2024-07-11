@@ -12,7 +12,7 @@ export default async function HomePage() {
       <div className="header">
         <PageTitle>Active Opportunities</PageTitle>
       </div>
-      <div className="table">
+      <div className="my-4 w-full">
         <OpportunityList opportunities={opportunities} />
       </div>
     </main>
