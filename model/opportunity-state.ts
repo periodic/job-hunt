@@ -8,7 +8,8 @@ export const terminalStates = [
 export const openStates = [
   'inbound',
   'outbound',
-  'scheduled',
+  'scheduling',
+  'scheduled', // Deprecated
   'interview',
   'awaiting-response',
   'assignment',

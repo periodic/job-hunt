@@ -3,6 +3,7 @@ import { getOpportunity } from "@/database/opportunity";
 import { getUpdates } from "@/database/update";
 import UpdateList from "./UpdateList";
 import AddUpdateForm from "./AddUpdateForm";
+import Markdown from "@/components/Markdown";
 
 export type Props = {
   params: { id: string };
@@ -14,12 +15,14 @@ export default async function OpportunityDetails({params}: Props) {
   const updates = await getUpdates(opportunityId);
 
   return <div>
-    <PageTitle>
-      {opportunity.role} @ {opportunity.company}
-    </PageTitle>
+    <div className="my-4">
+      <PageTitle>
+        {opportunity.role} @ {opportunity.company}
+      </PageTitle>
+    </div>
 
     <p>
-      {opportunity.notes}
+      <Markdown text={opportunity.notes} />
     </p>
 
     <UpdateList updates={updates} />

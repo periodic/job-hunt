@@ -21,9 +21,11 @@ export default function UpdateList({ updates }: Props) {
 
   return <div>
     { updates.length > 3 &&
-      <Button onClick={() => setShowAll(!showAll)}>
-        { showAll ? 'Hide Old' : 'Show All'}
-      </Button>
+      <a
+        className="border-b border-dotted text-cyan-700 border-cyan-700 cursor-pointer"
+        onClick={e => { setShowAll(!showAll); e.preventDefault(); }}>
+        { showAll ? 'Hide old' : `Show ${updates.length - 3} older`}
+      </a>
     }
     {
       visibleUpdates.map(update => 
@@ -32,9 +34,7 @@ export default function UpdateList({ updates }: Props) {
             <StatePill state={update.state} />
             <Timestamp timestamp={update.created} />
           </div>
-          <Note>
-            {update.notes}
-          </Note>
+          <Note text={update.notes} />
         </div>
       )
     }

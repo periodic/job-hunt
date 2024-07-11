@@ -31,7 +31,7 @@ export default function OpportunityList({ opportunities }: Props) {
 
   return <div>
     <div className="flex flex-row items-center w-full justify-between mb-4">
-      <div>
+      <div className="flex flex-row items-center gap-2">
         <Select
           value={filter}
           onChange={(e) => setFilter(e)}
@@ -66,11 +66,9 @@ export default function OpportunityList({ opportunities }: Props) {
               {opportunity.role} @ {opportunity.company}
             </Link>
             <StatePill state={opportunity.lastUpdate.state} />
-          </div>
-          <Note>{opportunity.lastUpdate.notes}</Note>
-          <div>
             <Timestamp timestamp={opportunity.lastUpdate.created} />
           </div>
+          <Note text={opportunity.lastUpdate.notes} />
         </div>
       )
     }
