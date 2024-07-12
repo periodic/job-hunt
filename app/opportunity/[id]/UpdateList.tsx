@@ -29,12 +29,12 @@ export default function UpdateList({ updates }: Props) {
     }
     {
       visibleUpdates.map(update => 
-        <div key={update.id} className="my-2">
+        <div key={update.id} className="my-4">
           <div className="flex flex-row gap-4 items-center">
             <StatePill state={update.state} />
-            <Timestamp timestamp={update.created} />
           </div>
           <Note text={update.notes} />
+          <Timestamp timestamp={update.created} />
         </div>
       )
     }

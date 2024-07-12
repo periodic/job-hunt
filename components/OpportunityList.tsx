@@ -58,17 +58,21 @@ export default function OpportunityList({ opportunities }: Props) {
     </div>
     {
       visibleOpportunities.map(opportunity =>
-        <div key={opportunity.id} className="my-2">
-          <div className="flex flex-row gap-4 items-baseline">
-            <Link
-              className="text-xl font-bold"
-              href={`/opportunity/${opportunity.id}`}>
-              {opportunity.role} @ {opportunity.company}
-            </Link>
-            <StatePill state={opportunity.lastUpdate.state} />
+        <div key={opportunity.id} className="my-4 flex flex-row gap-4 items-start">
+          <div>
+            <StatePill state={opportunity.lastUpdate.state} className="w-24"/>
+          </div>
+          <div>
+            <div className="flex flex-row gap-4 items-baseline">
+              <Link
+                className="text-xl font-bold"
+                href={`/opportunity/${opportunity.id}`}>
+                {opportunity.role} @ {opportunity.company}
+              </Link>
+            </div>
+            <Note text={opportunity.lastUpdate.notes} />
             <Timestamp timestamp={opportunity.lastUpdate.created} />
           </div>
-          <Note text={opportunity.lastUpdate.notes} />
         </div>
       )
     }

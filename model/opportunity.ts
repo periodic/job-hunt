@@ -1,3 +1,5 @@
+import type { Update } from "./update";
+
 export type Opportunity = {
   id: number;
   company: string;

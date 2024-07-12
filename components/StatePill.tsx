@@ -2,6 +2,7 @@ import { type OpportunityState } from "@/model/opportunity-state"
 
 export type Props = {
   state: OpportunityState;
+  className?: string;
 }
 
 const colors = (state: OpportunityState) => {
@@ -38,9 +39,9 @@ const colors = (state: OpportunityState) => {
   }
 }
 
-export default function StatePill({state}: Props) {
+export default function StatePill({state, className}: Props) {
   return <span
-    className={`rounded-full px-2 ${colors(state)}`}>
+    className={`rounded-full px-2 inline-block text-center ${colors(state)} ${className}`}>
       {state || "Unknown"}
     </span>;
 }

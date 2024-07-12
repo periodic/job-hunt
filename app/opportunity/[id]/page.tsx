@@ -27,8 +27,8 @@ export default async function OpportunityDetails({params}: Props) {
 
     <UpdateList updates={updates} />
 
-    <div>
-      <h2>Update</h2>
+    <div className="mt-8">
+      <h2 className="font-semibold text-xl my-4">Add Update</h2>
       <AddUpdateForm opportunityId={opportunityId}/>
     </div>
   </div>

@@ -25,7 +25,7 @@ export default function Timestamp({ timestamp }: {timestamp: Date}) {
 
   const seconds = (Date.now() - timestamp.getTime()) / 1000;
   const { unit, value: divisor } = cutOffs.find((_, i) => (cutOffs[i + 1].value ?? Infinity) > seconds) ?? cutOffs[4];
-  const rtf = new Intl.RelativeTimeFormat(navigator.language, { numeric: "auto" });
+  const rtf = new Intl.RelativeTimeFormat('en', { numeric: "auto" });
 
   return <span
     onClick={() => setIsPrecise(true)}
