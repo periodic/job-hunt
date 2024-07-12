@@ -1,3 +1,5 @@
+'use server';
+
 import type { Opportunity } from "@/model/opportunity";
 import { type OpportunityState } from "@/model/opportunity-state";
 import type { Update } from "@/model/update";
@@ -7,12 +9,12 @@ import { createUpdate } from "./update";
 const opportunities = async () => makeClient<Opportunity>('opportunity');
 
 
-const fixDates = <T extends { created: number | Date }>(opportunity: T): T & { created: Date } => ({
+const fixDates = <T extends { created: number | Date; }>(opportunity: T): T & { created: Date; } => ({
   ...opportunity,
   created: new Date(opportunity.created)
 });
 
-export const getOpportunitiesWithLastUpdate = async (): Promise<(Opportunity & { lastUpdate: Update })[]> => {
+export const getOpportunitiesWithLastUpdate = async (): Promise<(Opportunity & { lastUpdate: Update; })[]> => {
   const query = (await opportunities()).client
     .select({
       id: 'opportunity.id',
@@ -28,7 +30,7 @@ export const getOpportunitiesWithLastUpdate = async (): Promise<(Opportunity & {
     .join('update', 'update.opportunity_id', 'opportunity.id')
     .leftJoin('update AS u2', function () {
       this.on('opportunity.id', 'u2.opportunity_id')
-        .andOn('update.created', '<', 'u2.created')
+        .andOn('update.created', '<', 'u2.created');
     })
     .whereNull('u2.id')
     .orderBy('opportunity.created');
@@ -43,7 +45,7 @@ export const getOpportunitiesWithLastUpdate = async (): Promise<(Opportunity & {
         notes: opportunity.updateNotes,
       }),
     })));
-}
+};
 
 export const getOpportunity = async (id: number): Promise<Opportunity> =>
   (await opportunities()).client
@@ -70,4 +72,11 @@ export const createOpportunity = async (company: string, role: string, state: Op
   await createUpdate(opportunityId, state, notes);
 
   return opportunityId;
-}
+};
+
+export const updateNotes = async (id: number, notes: string): Promise<void> => {
+  await (await opportunities()).client
+    .update({
+      notes,
+    });
+};
