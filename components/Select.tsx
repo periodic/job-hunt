@@ -2,11 +2,11 @@ export type Props<T extends string> = {
   name?: string;
   value?: T;
   items: Record<T, string>,
-  required?: boolean
+  required?: boolean;
   onChange?: (value: T) => void,
 };
 
-export default function Select<T extends string>({name, value, onChange, items, required}: Props<T>) {
+export default function Select<T extends string>({ name, value, onChange, items, required }: Props<T>) {
   return <select
     className="border border-slate-300 text-slate-100 bg-slate-800 w-40 p-2"
     name={name}
@@ -19,5 +19,5 @@ export default function Select<T extends string>({name, value, onChange, items, 
         <option key={value} value={value}>{label}</option>
       )
     }
-  </select>
+  </select>;
 }

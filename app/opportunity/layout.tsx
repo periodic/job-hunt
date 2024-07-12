@@ -1,4 +1,4 @@
-import Link from "next/link"
+import Link from "next/link";
 
 export default function OpportunityLayout({
   children,
@@ -12,5 +12,5 @@ export default function OpportunityLayout({
     <div>
       {children}
     </div>
-  </div>
+  </div>;
 }

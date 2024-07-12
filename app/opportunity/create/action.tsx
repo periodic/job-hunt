@@ -1,4 +1,4 @@
-'use server'
+'use server';
 import * as Opportunity from "@/database/opportunity";
 import { isValidState, type OpportunityState } from "@/model/opportunity-state";
 import { redirect } from "next/navigation";
@@ -8,10 +8,10 @@ export type ActionErrors = {
   role?: 'missing' | 'invalid';
   state?: 'missing' | 'invalid';
   notes?: 'invalid';
-}
+};
 
 export async function createOpportunity(prevState: any, formData: FormData): Promise<ActionErrors> {
-  "use server"
+  "use server";
   const company = formData.get('company');
   const role = formData.get('role');
   const state = formData.get('state');

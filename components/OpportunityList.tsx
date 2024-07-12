@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import type { OpportunityWithUpdate } from "@/model/opportunity";
 import { getSortFunction, type SortOption } from "@/model/opportunity";
@@ -13,7 +13,7 @@ import Timestamp from "./Timestamp";
 
 export type Props = {
   opportunities: Array<OpportunityWithUpdate>;
-}
+};
 
 export default function OpportunityList({ opportunities }: Props) {
   const [filter, setFilter] = useState<'open' | 'closed' | 'all'>('open');
@@ -60,7 +60,7 @@ export default function OpportunityList({ opportunities }: Props) {
       visibleOpportunities.map(opportunity =>
         <div key={opportunity.id} className="my-4 flex flex-row gap-4 items-start">
           <div>
-            <StatePill state={opportunity.lastUpdate.state} className="w-24"/>
+            <StatePill state={opportunity.lastUpdate.state} className="w-24" />
           </div>
           <div>
             <div className="flex flex-row gap-4 items-baseline">

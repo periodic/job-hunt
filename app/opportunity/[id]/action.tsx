@@ -1,4 +1,4 @@
-'use server'
+'use server';
 import { createUpdate } from "@/database/update";
 import { isValidState } from "@/model/opportunity-state";
 import { revalidatePath } from "next/cache";
@@ -6,10 +6,10 @@ import { revalidatePath } from "next/cache";
 type ActionErrors = {
   state?: 'missing' | 'invalid';
   notes?: 'invalid';
-}
+};
 
 export async function addUpdate(opportunityId: number, prevState: unknown, formData: FormData): Promise<ActionErrors> {
-  "use server"
+  "use server";
   const state = formData.get('state');
   const notes = formData.get('notes') || '';
 
@@ -19,11 +19,11 @@ export async function addUpdate(opportunityId: number, prevState: unknown, formD
 
   if (typeof notes !== 'string'
   ) {
-    throw new Error(`Got file data from form when only strings are expected.`)
+    throw new Error(`Got file data from form when only strings are expected.`);
   }
-  
+
   const updateId = await createUpdate(opportunityId, state, notes);
 
-  revalidatePath(`/opportunity/${opportunityId}`)
-  return {}
+  revalidatePath(`/opportunity/${opportunityId}`);
+  return {};
 }
