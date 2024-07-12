@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "migration:create": "knex migrate:make -x ts"
+    "push": "scripts/build-and-push.sh",
+    "migration:create": "knex migrate:make"
   },
   "dependencies": {
     "knex": "^3.1.0",

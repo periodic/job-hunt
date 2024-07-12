@@ -1,36 +1,37 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Job Tracker
 
-## Getting Started
+A simple job tracker suitable for a single user.  Tracks opportunities as they move through your job-hunt pipeline.
 
-First, run the development server:
+## Development
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+First, make sure to set up your environment.  This project uses NVM to manage versions, but you are welcome to use any similar tool.
+
+```sh
+nvm use
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+You may then start the development server.  It is configured to use sqlite in `database/client.ts`.  It will be available at `https://localhost:3000` (or higher if that port is already in use).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```sh
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### Deployment
 
-## Learn More
+Deployment is intended to be done via a docker image.  A script to build and push the image is included at `scripts/build-and-push.sh`.  It has a hard-coded image name so you may need to change that for your environment.
 
-To learn more about Next.js, take a look at the following resources:
+```sh
+npm run push
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Migrations
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Migrations are handled by [Knex](https://knexjs.org/guide/migrations.html).  They are automatically run when the application is started to verify that the database is in a good state.  Note that new migrations should be in JavaScript format (not TypeScript) because they will be loaded directly and are not (yet) passed through a compiler.
 
-## Deploy on Vercel
+New migrations can be generated with a package script.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```sh
+npm run migrate:create
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
